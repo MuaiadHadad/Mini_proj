@@ -1,0 +1,61 @@
+# docker-compose.yml
+# Configuração para executar a aplicação com Docker Compose
+
+version: '3.8'
+
+services:
+  # Serviço da aplicação Django
+  web:
+    build: .
+    container_name: sentiment_analysis_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=django-insecure-docker-key-change-in-production
+      - ALLOWED_HOSTS=*
+      - DATABASE_URL=sqlite:///db.sqlite3
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # Serviço do banco de dados PostgreSQL (opcional)
+  db:
+    image: postgres:15-alpine
+    container_name: sentiment_analysis_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=sentiment_db
+      - POSTGRES_USER=sentiment_user
+      - POSTGRES_PASSWORD=sentiment_pass
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  # Nginx para servir arquivos estáticos em produção (opcional)
+  nginx:
+    image: nginx:alpine
+    container_name: sentiment_analysis_nginx
+    volumes:
+      - static_volume:/app/staticfiles
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    restart: unless-stopped
+    profiles:
+      - production
+
+volumes:
+  postgres_data:
+  static_volume:
+
+networks:
+  default:
+    name: sentiment_network

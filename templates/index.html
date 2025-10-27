@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisador de Sentimentos</title>
+    {% load static %}
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎭 Analisador de Sentimentos</h1>
+            <p>Análise de sentimentos com Machine Learning</p>
+        </header>
+
+        <main>
+            <!-- Seção de Análise Rápida -->
+            <section class="quick-analyze">
+                <h2>Análise Rápida</h2>
+                <div class="form-group">
+                    <textarea id="quickText" placeholder="Digite um texto para análise rápida..."></textarea>
+                    <button onclick="analyzeQuick()" class="btn btn-primary">Analisar</button>
+                </div>
+                <div id="quickResult" class="result-box"></div>
+            </section>
+
+            <!-- Seção de Criar Post -->
+            <section class="create-post">
+                <h2>Criar Post</h2>
+                <div class="form-group">
+                    <input type="text" id="author" placeholder="Seu nome">
+                    <textarea id="content" placeholder="Conteúdo do post..."></textarea>
+                    <button onclick="createPost()" class="btn btn-success">Criar Post</button>
+                </div>
+            </section>
+
+            <!-- Lista de Posts -->
+            <section class="posts-list">
+                <h2>Posts Recentes</h2>
+                <button onclick="loadPosts()" class="btn btn-secondary">Recarregar</button>
+                <div id="postsList"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Desenvolvido com ❤️ usando Django e Machine Learning</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
