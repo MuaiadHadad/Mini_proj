@@ -179,6 +179,12 @@ Observação: O `DATABASE_URL` está presente no docker-compose, mas o projeto n
 - Caso a análise de sentimentos falhe, verifique a instalação do `textblob` (já presente em `requirements.txt`).
 - Se for usar PostgreSQL, ajuste `DATABASES` em `settings.py` ou adicione suporte a `DATABASE_URL`.
 
+## Screenshots
+
+![Screenshot 1](readmeimg/1.png)
+
+![Screenshot 2](readmeimg/2.png)
+
 ## Licença
 
 MIT. Veja o arquivo LICENSE.
